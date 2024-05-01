@@ -9,7 +9,8 @@ router.route('/')
   .put(verifyStates, statesController.updateState)
   .delete(verifyStates, statesController.deleteState);
 
-router.route('/:stateCode')
-  .get(statesController.getState);
+  router.route('/:state/funfact')
+  .get(verifyStates, statesController.getStateFunFact);
+
 
 module.exports = router;
