@@ -70,7 +70,7 @@ const getState = async (req, res) => {
         const { stateCode } = req.params;
         const state = await State.findOne({ stateCode: stateCode.toUpperCase() });
         if (!state) {
-            return res.status(400).json({ message: 'Invalid state abbreviation parameter' });
+            return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
         }
         res.json(state);
     } catch (err) {
