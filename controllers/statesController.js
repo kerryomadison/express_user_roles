@@ -109,6 +109,39 @@ const getStateFunFact = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+const getCapital = (req, res) => {
+    const stateCode = req.params.stateCode.toUpperCase();
+    const state = statesData.find(state => state.abbreviation === stateCode);
+    if (!state) {
+        return res.status(404).json({ message: 'State not found' });
+    }
+    res.json({ capital: state.capital });
+};
+
+const getNickname = (req, res) => {
+    const stateCode = req.params.stateCode.toUpperCase();
+    const state = statesData.find(state => state.abbreviation === stateCode);
+    if (!state) {
+        return res.status(404).json({ message: 'State not found' });
+    }
+    res.json({ nickname: state.nickname });
+};
+const getPopulation = (req, res) => {
+    const stateCode = req.params.stateCode.toUpperCase();
+    const state = statesData.find(state => state.abbreviation === stateCode);
+    if (!state) {
+        return res.status(404).json({ message: 'State not found' });
+    }
+    res.json({ population: state.population });
+};
+const getAdmission = (req, res) => {
+    const stateCode = req.params.stateCode.toUpperCase();
+    const state = statesData.find(state => state.abbreviation === stateCode);
+    if (!state) {
+        return res.status(404).json({ message: 'State not found' });
+    }
+    res.json({ admission: state.admission });
+};
 
 module.exports = {
     getAllStates,
@@ -116,5 +149,9 @@ module.exports = {
     updateState,
     deleteState,
     getState,
-    getStateFunFact
+    getStateFunFact,
+    getCapital,
+    getNickname,
+    getPopulation,
+    getAdmission
 };
