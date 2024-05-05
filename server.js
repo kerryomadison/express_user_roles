@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const favicon = require('serve-favicon');
 const path = require('path');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
@@ -38,6 +39,9 @@ app.use(express.json());
 
 //middleware for cookies
 app.use(cookieParser());
+
+// Handle favicon.ico request
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
