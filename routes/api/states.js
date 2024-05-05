@@ -9,12 +9,14 @@ router.route('/')
   .put(verifyStates, statesController.updateState)
   .delete(verifyStates, statesController.deleteState);
 
-router.get('/:stateCode/capital', statesController.getCapital);
+  router.get('/:stateCode/capital', statesController.getCapital);
 router.get('/:stateCode/nickname', statesController.getNickname);
 router.get('/:stateCode/population', statesController.getPopulation);
 router.get('/:stateCode/admission', statesController.getAdmission);
 
 router.route('/:stateCode/funfact')
   .get(verifyStates, statesController.getStateFunFact);
+// New route for /states/:stateCode
+router.get('/:stateCode', verifyStates, statesController.getState);
 
 module.exports = router;

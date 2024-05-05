@@ -8,16 +8,8 @@ const getAllStates = async (req, res) => {
 
         // Check if the query parameter contig is present and set to false
         if (req.query.contig === 'false') {
-            states = states.filter(state => state.abbreviation !== 'AK' && state.abbreviation !== 'HI');
+            states = states.filter(state => state.code !== 'AK' && state.code !== 'HI');
         }
-
-        // Attach fun facts from MongoDB collection
-        await Promise.all(states.map(async state => {
-            const stateData = await State.findOne({ stateCode: state.abbreviation });
-            if (stateData && stateData.funFacts) {
-                state.funFacts = stateData.funFacts;
-            }
-        }));
 
         res.json(states);
     } catch (err) {
@@ -25,7 +17,6 @@ const getAllStates = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
-
 
 const createState = async (req, res) => {
     try {
@@ -79,14 +70,14 @@ const deleteState = async (req, res) => {
 
 const getState = async (req, res) => {
     try {
-        const  stateCode  = req.params.state.toUpperCase();
-        const state = statesData.find(state=>state.abbreviation===stateCode);
+        const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase for case-insensitivity
+        const state = statesData.find(state => state.code.toUpperCase() === stateCode); // Use 'code' instead of 'abbreviation'
         if (!state) {
             return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
         }
-        const stateData= await State.findOne({stateCode});
-        if(stateData&&stateData.funFacts){
-            state.funFacts=stateData.funFacts;
+        const stateData = await State.findOne({ stateCode });
+        if (stateData && stateData.funFacts) {
+            state.funFacts = stateData.funFacts;
         }
         res.json(state);
     } catch (err) {
@@ -94,6 +85,7 @@ const getState = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
 const getStateFunFact = async (req, res) => {
     try {
         const { stateCode } = req.params;
@@ -110,37 +102,38 @@ const getStateFunFact = async (req, res) => {
     }
 };
 const getCapital = (req, res) => {
-    const stateCode = req.params.stateCode.toUpperCase();
-    const state = statesData.find(state => state.abbreviation === stateCode);
+    const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase
+    const state = statesData.find(state => state.code === stateCode);
     if (!state) {
         return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ capital: state.capital });
+    res.json({ state: state.state, capital: state.capital_city }); // Use 'state' for the state name
 };
+
 
 const getNickname = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
-    const state = statesData.find(state => state.abbreviation === stateCode);
+    const state = statesData.find(state => state.code === stateCode);
     if (!state) {
         return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ nickname: state.nickname });
+    res.json({ state: state.state, nickname: state.nickname });
 };
 const getPopulation = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
-    const state = statesData.find(state => state.abbreviation === stateCode);
+    const state = statesData.find(state => state.code === stateCode);
     if (!state) {
         return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ population: state.population });
+    res.json({ state: state.state, population: state.population });
 };
 const getAdmission = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
-    const state = statesData.find(state => state.abbreviation === stateCode);
+    const state = statesData.find(state => state.code === stateCode);
     if (!state) {
         return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ admission: state.admission });
+    res.json({ state: state.state, admitted: state.admission_date });
 };
 
 module.exports = {
