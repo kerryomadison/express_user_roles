@@ -42,12 +42,16 @@ app.use(cookieParser());
 
 // Handle favicon.ico request
 app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/index.html'));
+});
 
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
 
 // routes
 app.use('/states', statesRouter); // Use router from statesRouter
+
 //app.use('/register', require('./routes/register'));
 //app.use('/auth', require('./routes/auth'));
 //app.use('/refresh', require('./routes/refresh'));

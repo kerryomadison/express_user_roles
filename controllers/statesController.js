@@ -101,6 +101,30 @@ const getStateFunFact = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+const updateStateFunFact = async (req, res) => {
+    try {
+        const stateCode = req.params.stateCode.toUpperCase();
+        const { newFunFact } = req.body; // Assuming the new fun fact is sent in the request body
+        const state = await State.findOneAndUpdate(
+            { stateCode },
+            { $push: { funFacts: newFunFact } },
+            { new: true }
+        );
+        if (!state) {
+            return res.status(404).json({ message: 'State not found' });
+        }
+        res.json(state);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+module.exports = {
+    // Other controller methods
+    updateStateFunFact
+};
+
 const getCapital = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase
     const state = statesData.find(state => state.code === stateCode);
@@ -109,7 +133,7 @@ const getCapital = (req, res) => {
     }
     res.json({ state: state.state, capital: state.capital_city }); // Use 'state' for the state name
 };
-
+router.post('/:stateCode/funfacts', statesController.addFunFactsToState);
 
 const getNickname = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
@@ -143,6 +167,7 @@ module.exports = {
     deleteState,
     getState,
     getStateFunFact,
+    updateStateFunFact,
     getCapital,
     getNickname,
     getPopulation,

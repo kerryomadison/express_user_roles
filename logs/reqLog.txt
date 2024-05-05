@@ -197,3 +197,8 @@
 20240505	12:53:45	3a3a4590-04af-41f5-afb5-3fde0fe0baf3	GET	undefined	/favicon.ico
 20240505	13:02:20	81b87530-cda0-4eb3-88a3-f3cdb3c64cf3	GET	undefined	/states/co
 20240505	13:02:20	d08e42f7-d5d4-4bc7-b840-b55cc12c7999	GET	undefined	/favicon.ico
+20240505	13:36:31	21db2347-adc0-4446-8bb1-7a235f605333	GET	undefined	/states/co
+20240505	13:36:31	461ae76d-8627-4d7e-bf97-ca8435e57b77	GET	undefined	/favicon.ico
+20240505	13:36:35	7b86fded-a989-43cb-98b3-1e3d1123db2f	GET	undefined	/
+20240505	13:36:35	d6f6e24c-8152-4549-8214-8cc082d19af8	GET	undefined	/css/style.css
+20240505	13:36:35	cc8fe9fc-725d-4c7b-b18c-df2492d8bb57	GET	undefined	/favicon.ico
