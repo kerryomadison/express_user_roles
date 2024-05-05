@@ -16,7 +16,7 @@ router.get('/:stateCode/admission', statesController.getAdmission);
 
 router.route('/:stateCode/funfact')
   .get(verifyStates, statesController.getStateFunFact);
-router.put('/:stateCode/funfact', verifyStates, statesController.updateStateFunFact);
+router.post('/:stateCode/funfact', statesController.updateStateFunFact);
 
 // New route for /states/:stateCode
 router.get('/:stateCode', verifyStates, statesController.getState);

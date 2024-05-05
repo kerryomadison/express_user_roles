@@ -202,3 +202,14 @@
 20240505	13:36:35	7b86fded-a989-43cb-98b3-1e3d1123db2f	GET	undefined	/
 20240505	13:36:35	d6f6e24c-8152-4549-8214-8cc082d19af8	GET	undefined	/css/style.css
 20240505	13:36:35	cc8fe9fc-725d-4c7b-b18c-df2492d8bb57	GET	undefined	/favicon.ico
+20240505	14:40:31	a428f4de-5ac3-424f-919f-0b812d44e897	GET	undefined	/
+20240505	14:40:31	4ad760b7-867f-47ef-ac1c-b28019b26c0a	GET	undefined	/css/style.css
+20240505	14:40:31	228f3745-65f5-4259-abec-708e01cb02cc	GET	undefined	/favicon.ico
+20240505	14:40:40	4766ee9c-230a-4a1d-865e-bdd9a14c7a49	GET	undefined	/states/co
+20240505	14:40:40	36e3726d-01e3-44ae-a898-76fd47e14abd	GET	undefined	/favicon.ico
+20240505	14:40:44	cb36f63e-e456-4604-99f8-75928bc1832f	GET	undefined	/states/co/funfact
+20240505	14:40:45	a6a2e82c-15bc-4249-b01f-c25925394db0	GET	undefined	/favicon.ico
+20240505	14:42:18	b8c9e6eb-b6cb-4425-86ae-50680fa4ec70	GET	undefined	/states/nh/funfact
+20240505	14:42:19	715c124d-5f1a-4876-af25-2b01d3255f19	GET	undefined	/favicon.ico
+20240505	14:44:27	898632ea-56fe-4734-b054-b5ca8ee3f31c	GET	undefined	/states/nh/funfact
+20240505	14:44:27	1cf6a5fa-6586-48cd-a8cd-58a44cd2462a	GET	undefined	/favicon.ico
