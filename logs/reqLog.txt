@@ -283,3 +283,5 @@
 20240505	20:00:30	9d057bc2-c12e-4508-93dd-67529d7af5d7	GET	undefined	/
 20240505	20:00:30	c5e09f8c-7baf-4d7c-ba30-d978eda9f735	GET	undefined	/css/style.css
 20240505	20:00:35	3a9bc07c-38cf-4188-a5d5-e44f777f47ec	GET	undefined	/css/style.css
+20240505	20:19:39	d2becb96-dd6c-4039-97f6-acf033cff5d7	GET	undefined	/
+20240505	20:19:39	b0dad81d-4506-4ef4-b2b3-08034c876e05	GET	undefined	/css/style.css

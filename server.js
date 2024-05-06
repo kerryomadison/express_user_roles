@@ -51,6 +51,7 @@ app.get('/', (req, res) => {
 });
 // routes
 app.use('/states', statesRouter); // Use router from statesRouter
+app.use('/', require('./routes/root'));
 
 //app.use('/register', require('./routes/register'));
 //app.use('/auth', require('./routes/auth'));
@@ -82,7 +83,7 @@ app.get('/states/:stateCode/funfact', (req, res) => {
         const randomFunFact = funFacts[stateCode][randomIndex];
         res.json({ funfact: randomFunFact });
     } else {
-        res.status(404).json({ error: 'State not found or no fun facts available' });
+        res.status(404).json({ error: 'Invalid state abbreviation parameter' });
     }
 });
 app.all('*', (req, res) => {
