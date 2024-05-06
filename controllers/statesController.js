@@ -73,7 +73,7 @@ const getState = async (req, res) => {
         const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase for case-insensitivity
         const state = statesData.find(state => state.code.toUpperCase() === stateCode); // Use 'code' instead of 'abbreviation'
         if (!state) {
-            return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
+            return res.status(400).json({ message: 'Invalid state abbreviation parameter' });
         }
         const stateData = await State.findOne({ stateCode });
         if (stateData && stateData.funFacts) {

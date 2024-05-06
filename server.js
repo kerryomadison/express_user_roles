@@ -45,6 +45,7 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './views/index.html'));
 });
@@ -84,7 +85,6 @@ app.get('/states/:stateCode/funfact', (req, res) => {
         res.status(404).json({ error: 'State not found or no fun facts available' });
     }
 });
-
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
