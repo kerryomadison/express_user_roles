@@ -285,3 +285,13 @@
 20240505	20:00:35	3a9bc07c-38cf-4188-a5d5-e44f777f47ec	GET	undefined	/css/style.css
 20240505	20:19:39	d2becb96-dd6c-4039-97f6-acf033cff5d7	GET	undefined	/
 20240505	20:19:39	b0dad81d-4506-4ef4-b2b3-08034c876e05	GET	undefined	/css/style.css
+20240506	12:16:17	f015f5ae-53cc-4d9d-a607-e15e88c46f14	GET	undefined	/states
+20240506	12:16:21	ae5b2ebe-7b2a-4ba9-9ea5-007d1e998fdf	GET	undefined	/
+20240506	12:16:22	d6d34aad-e5c9-44d4-90dc-cbfb783018a5	GET	undefined	/css/style.css
+20240506	12:16:22	ec16a04f-c791-4911-8f71-470e29e7410e	GET	undefined	/favicon.ico
+20240506	12:16:37	ec15f49c-93d5-4c6d-adbc-1e35c6707abf	GET	undefined	/css/style.css
+20240506	12:16:55	1ce9d5d2-b7c9-4054-b944-6e107d68c7eb	GET	undefined	/states
+20240506	12:16:56	61ba6d4b-9944-4ca6-9814-3a28440347bf	GET	undefined	/favicon.ico
+20240506	12:17:08	e1f74471-0c46-45b5-9596-703ad53fef43	GET	undefined	/
+20240506	12:17:08	387af551-9ef2-45d5-a8d4-2929f9a4c0be	GET	undefined	/css/style.css
+20240506	12:17:08	41b4b052-af6a-42c0-b2c1-e7f9bddedd02	GET	undefined	/favicon.ico
