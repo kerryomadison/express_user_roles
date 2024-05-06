@@ -25,11 +25,7 @@ app.use(logger);
 // app.use(credentials);
 
 // Cross Origin Resource Sharing
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(cors());
 
 // built-in middleware to handle urlencoded form data
 app.use(express.urlencoded({ extended: false }));
