@@ -91,7 +91,7 @@ const getStateFunFact = async (req, res) => {
         const { stateCode } = req.params;
         const state = statesData.find(state => state.code === stateCode.toUpperCase());
         if (!state) {
-            return res.status(404).json({ message: 'State not found' });
+            return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
         }
 
         const randomFunFact = await funFactsController.getRandomFunFact(stateCode.toUpperCase());
@@ -146,7 +146,7 @@ const getPopulation = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
     const state = statesData.find(state => state.code === stateCode);
     if (!state) {
-        return res.status(404).json({ message: 'State not found' });
+        return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
     }
     res.json({ state: state.state, population: numberWithCommas(state.population) });
 };
