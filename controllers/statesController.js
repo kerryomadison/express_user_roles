@@ -146,10 +146,15 @@ const getPopulation = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
     const state = statesData.find(state => state.code === stateCode);
     if (!state) {
-        return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
+        return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ state: state.state, population: state.population });
+    res.json({ state: state.state, population: numberWithCommas(state.population) });
 };
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const getAdmission = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase();
     const state = statesData.find(state => state.code === stateCode);
