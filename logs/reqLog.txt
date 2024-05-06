@@ -279,3 +279,7 @@
 20240505	19:41:43	76949f8d-0b0f-42bb-a4c8-cdc2f2ae865e	GET	undefined	/css/style.css
 20240505	19:42:13	d5436a2a-7e14-4a3f-8210-3c3c9546c687	GET	undefined	/
 20240505	19:42:13	46b0f275-5dbc-4c89-ab9a-99fdf9fd3f24	GET	undefined	/css/style.css
+20240505	20:00:25	add956d1-eab5-4604-9193-4cc97ea0497f	GET	undefined	/states
+20240505	20:00:30	9d057bc2-c12e-4508-93dd-67529d7af5d7	GET	undefined	/
+20240505	20:00:30	c5e09f8c-7baf-4d7c-ba30-d978eda9f735	GET	undefined	/css/style.css
+20240505	20:00:35	3a9bc07c-38cf-4188-a5d5-e44f777f47ec	GET	undefined	/css/style.css
