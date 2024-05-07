@@ -25,7 +25,7 @@ const verifyStates = (req, res, next) => {
     // Check if the state abbreviation is in the array of state codes
     if (!stateCodes.includes(upperCaseStateCode)) {
         // If it isn't in the array, return a bad request status with the required message
-        return res.status(400).json({ message: 'Invalid state abbreviation' });
+        return res.status(400).json({ message: 'Invalid state abbreviation parameter' });
     }
 
     // If it is in the array, set the value on the request and move to the next middleware
