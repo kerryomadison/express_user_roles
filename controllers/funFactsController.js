@@ -1,12 +1,11 @@
-const State = require('../model/States');
-const statesData= require('../model/statesData.json');
-
+const State = require('../model/State');
+const statesData = require('../model/statesData.json');
 
 const getRandomFunFact = async (req, res) => {
     try {
         const { stateCode } = req.params;
 
-        // Find the state in the statesData array
+        // Find the state in the local data
         const state = statesData.find(state => state.code === stateCode.toUpperCase());
         if (!state) {
             return res.status(400).json({ message: `Invalid state abbreviation parameter` });
@@ -17,7 +16,7 @@ const getRandomFunFact = async (req, res) => {
             const randomIndex = Math.floor(Math.random() * state.funfacts.length);
             return res.json({ funfact: state.funfacts[randomIndex] });
         } else {
-            return res.status(404).json({ message: `No fun facts found for ${state.state}` });
+            return res.status(404).json({ message: `No Fun Facts found for ${state.state}` });
         }
     } catch (err) {
         console.error(err);
@@ -39,23 +38,28 @@ const createFunFacts = async (req, res) => {
             }
         }
 
-        // Find the state in the statesData array
-        const state = statesData.find(state => state.code === stateCode.toUpperCase());
+        // Find the state in the database
+        let state = await State.findOne({ stateCode: stateCode.toUpperCase() });
+
+        // If state does not exist, create a new state record
         if (!state) {
-            return res.status(404).json({ message: `No state found for code ${stateCode}` });
+            state = new State({
+                stateCode: stateCode.toUpperCase(),
+                funfacts: [...funfacts]
+            });
+        } else {
+            // Add the new fun facts to the state without deleting existing ones
+            state.funfacts = [...state.funfacts, ...funfacts];
         }
 
-        // Add the new fun facts to the state
-        if (!state.funfacts) {
-            state.funfacts = [];
-        }
-        state.funfacts.push(...funfacts);
+        // Save the updated or new state record
+        await state.save();
 
-        // Return the updated state
+        // Return the updated or new state record
         return res.status(201).json(state);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server Error' });
+        return res.status(500).json({ message: 'Server Error' });
     }
 };
 
@@ -72,7 +76,7 @@ const updateFunFacts = async (req, res) => {
             return res.status(400).json({ message: 'State fun fact value required' });
         }
 
-        // Find the state in the statesData array
+        // Find the state in the local data
         const state = statesData.find(state => state.code === stateCode.toUpperCase());
         if (!state) {
             return res.status(404).json({ message: `No state found for code ${stateCode}` });
@@ -112,7 +116,7 @@ const deleteFunFact = async (req, res) => {
             return res.status(400).json({ message: 'State fun fact index value required' });
         }
 
-        // Find the state in the statesData array
+        // Find the state in the local data
         const state = statesData.find(state => state.code === stateCode.toUpperCase());
         if (!state) {
             return res.status(404).json({ message: `No state found for code ${stateCode}` });
@@ -138,7 +142,6 @@ const deleteFunFact = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
-
 
 module.exports = {
     getRandomFunFact,
