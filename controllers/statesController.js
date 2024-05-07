@@ -1,6 +1,7 @@
 const State = require('../model/States');
 const statesData= require('../model/statesData.json');
 const funFactsController = require('./funFactsController');
+const { addFunFactsToState } = require('../controllers/funFactsController');
 
 const getAllStates = async (req, res) => {
     try {
@@ -86,46 +87,6 @@ const getState = async (req, res) => {
     }
 };
 
-const getStateFunFact = async (req, res) => {
-    try {
-        const { stateCode } = req.params;
-        const state = statesData.find(state => state.code === stateCode.toUpperCase());
-        if (!state) {
-            return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
-        }
-
-        const randomFunFact = await funFactsController.getRandomFunFact(stateCode.toUpperCase());
-
-        if (!randomFunFact) {
-            return res.status(404).json({ message: `No Fun Facts found for ${state.state}` });
-        }
-
-        res.json({ funfact: randomFunFact });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
-    }
-};
-
-const updateStateFunFact = async (req, res) => {
-    try {
-        const stateCode = req.params.stateCode.toUpperCase();
-        const { newFunFact } = req.body; // Assuming the new fun fact is sent in the request body
-        const state = await State.findOneAndUpdate(
-            { stateCode },
-            { $push: { funFacts: newFunFact } },
-            { new: true }
-        );
-        if (!state) {
-            return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
-        }
-        res.json(state);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
-    }
-};
-
 const getCapital = (req, res) => {
     const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase
     const state = statesData.find(state => state.code === stateCode);
@@ -170,8 +131,6 @@ module.exports = {
     updateState,
     deleteState,
     getState,
-    getStateFunFact,
-    updateStateFunFact,
     getCapital,
     getNickname,
     getPopulation,

@@ -9,6 +9,8 @@ const errorHandler = require('./middleware/errorHandler');
 const verifyJWT = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
 const statesRouter = require('./routes/api/states');
+const statesController = require('./controllers/statesController');
+const funFactsController = require('./controllers/funFactsController'); 
 const State = require('./model/States');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
@@ -36,11 +38,7 @@ app.use(express.json());
 //middleware for cookies
 app.use(cookieParser());
 
-// Handle favicon.ico request
-app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-//serve static files
-app.use('/', express.static(path.join(__dirname, '/public')));
 
 /*app.use('/', (req, res) => {
     res.sendFile(path.join(__dirname, './views/index.html'));
@@ -54,12 +52,27 @@ app.use('/', require('./routes/root'));
 //app.use('/auth', require('./routes/auth'));
 //app.use('/refresh', require('./routes/refresh'));
 // app.use('/logout', require('./routes/logout'));
-app.use('/', require('./middleware/verifyStates'));
+app.use('/states/:statecode', require('./middleware/verifyStates'));
 
+// Handle favicon.ico request
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 //app.use(verifyJWT);
 //app.use('/employees', require('./routes/api/employees')); not needed 
+//serve static files
+app.use('/', express.static(path.join(__dirname, '/public')));
 
+// Define the route handler for the root
+/*app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/index.html'));
+});
+*/
+// Define the route handler for adding a fun fact to a state
+app.post('/states/:stateCode/funfact', funFactsController.createFunFacts);
+app.patch('/states/:stateCode/funfact', funFactsController.updateFunFacts);
+app.delete('/states/:stateCode/funfact', funFactsController.deleteFunFact);
+// Define the route handler for getting a random fun fact for a state
+app.get('/states/:stateCode/funfact', funFactsController.getRandomFunFact);
 
 /*commenting out implementation that no longer needed. 
 // Save fun facts to the database
@@ -71,18 +84,6 @@ Object.entries(funFacts).forEach(([stateCode, facts]) => {
     state.save();
 });
 */
-// Define the route handler for /states/:stateCode/funfact
-app.get('/states/:stateCode/funfact', (req, res) => {
-    const stateCode = req.params.stateCode.toUpperCase(); // Convert state code to uppercase
-
-    if (funFacts[stateCode]) {
-        const randomIndex = Math.floor(Math.random() * funFacts[stateCode].length);
-        const randomFunFact = funFacts[stateCode][randomIndex];
-        res.json({ funfact: randomFunFact });
-    } else {
-        res.status(404).json({ error: 'Invalid state abbreviation parameter' });
-    }
-});
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
