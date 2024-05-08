@@ -101,7 +101,7 @@ const updateFunFacts = async (req, res) => {
 
         // Update the fun fact at the specified index
         if (index < 1 || index > state.funfacts.length) {
-            return res.status(400).json({ message: `No Fun Facts found at that index for ${getStateName(stateCode)}` });
+            return res.status(400).json({ message: `No Fun Fact found at that index for ${getStateName(stateCode)}` });
         }
         state.funfacts[index - 1] = funfact;
 
@@ -114,7 +114,7 @@ const updateFunFacts = async (req, res) => {
             stateCode: state.stateCode,
             funfacts: state.funfacts,
             __v: state.__v,
-            message: 'Fun fact updated successfully'
+           // message: 'Fun fact updated successfully'
         });
     } catch (err) {
         console.error(err);
@@ -129,13 +129,11 @@ const deleteFunFact = async (req, res) => {
 
         // Convert state code to uppercase
         stateCode = stateCode.toUpperCase();
-
-        // console.log("Deleting fun fact for state code:", stateCode);
-
+        if (!index) {
+            return res.status(400).json({ message: 'State fun fact index value required' });
+        }
         // Find the state in the database
         let state = await State.findOne({ stateCode });
-
-        console.log("State found:", state);
 
         // If state does not exist, create a new state record
         if (!state) {
@@ -158,16 +156,17 @@ const deleteFunFact = async (req, res) => {
         // Remove the fun fact at the specified index
         state.funfacts.splice(index - 1, 1);
 
-        // Save the updated or new state record
+        // Save the updated state record
         await state.save();
 
-        // Return success message and updated state object
-        return res.status(200).json({ message: 'Fun fact deleted successfully', ...state.toObject() });
+        // Return updated state object without the 'message' property
+        return res.status(200).json({ ...state.toObject() });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
 
 
 
