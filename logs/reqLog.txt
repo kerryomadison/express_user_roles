@@ -741,3 +741,14 @@
 20240508	11:01:33	9a97feb6-83f9-4798-8362-6f56debf0cca	GET	undefined	/favicon.ico
 20240508	11:05:49	976f462f-768e-4ac7-b926-f6b3c3d2d4e8	DELETE	undefined	/states/wy/funfact
 20240508	11:06:56	1a784141-3bf2-40f3-b490-e123bc3ad49d	DELETE	undefined	/states/wy/funfact
+20240508	11:20:21	2c0c6c49-28d0-4f5c-80cb-b267505bac7f	GET	undefined	/states/or/funfact
+20240508	11:20:22	27f45f6d-3be7-4e43-a442-9ddfce26e91d	GET	undefined	/favicon.ico
+20240508	11:20:24	e4343b2f-5f56-4091-b23a-af1c621e4efe	GET	undefined	/states
+20240508	11:20:24	10892669-3d04-412a-a93b-9407e62398f7	GET	undefined	/state
+20240508	11:20:24	4dbe1d68-ecee-460d-b37b-132990624a15	GET	undefined	/state
+20240508	11:20:24	15adbd28-a327-4355-b8ec-7965c76c9608	GET	undefined	/css/style.css
+20240508	11:20:24	d5d4d8db-0e9e-4278-8a01-9bae7a2f2d50	GET	undefined	/favicon.ico
+20240508	11:20:26	3469bbb6-2e42-469d-ac2d-1baf55332fa1	GET	undefined	/states
+20240508	11:20:31	d816185e-a4c3-42b9-b86c-07a99c63e91f	GET	undefined	/favicon.ico
+20240508	11:20:39	a2cf66d7-1289-4834-9dfe-c48880fb1377	GET	undefined	/states/oregon
+20240508	11:20:39	7cfc9e4e-c348-49de-b30d-1ce37443dd23	GET	undefined	/favicon.ico

@@ -6,9 +6,9 @@ const funFactsController = require('../../controllers/funFactsController');
 
 router.route('/')
   .get(statesController.getAllStates)
-  .post(verifyStates, statesController.createState)
-  .put(verifyStates, statesController.updateState)
-  .delete(verifyStates, statesController.deleteState);
+  //.post(verifyStates, statesController.createState)
+  //.put(verifyStates, statesController.updateState)
+  //.delete(verifyStates, statesController.deleteState);
 
 router.get('/:stateCode/capital', statesController.getCapital);
 router.get('/:stateCode/nickname', statesController.getNickname);

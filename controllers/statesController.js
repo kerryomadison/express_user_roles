@@ -30,7 +30,7 @@ const getAllStates = async (req, res) => {
     }
 };
 
-const createState = async (req, res) => {
+/* const createState = async (req, res) => {
     try {
         const { stateCode, funFacts } = req.body;
         if (!stateCode || !funFacts || !Array.isArray(funFacts)) {
@@ -79,7 +79,7 @@ const deleteState = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
-
+*/
 const getState = async (req, res) => {
     try {
         const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase for case-insensitivity
@@ -141,9 +141,9 @@ const getAdmission = (req, res) => {
 
 module.exports = {
     getAllStates,
-    createState,
-    updateState,
-    deleteState,
+    //createState,
+    //updateState,
+    //deleteState,
     getState,
     getCapital,
     getNickname,
