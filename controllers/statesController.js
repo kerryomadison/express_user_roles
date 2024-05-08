@@ -9,7 +9,18 @@ const getAllStates = async (req, res) => {
 
         // Check if the query parameter contig is present and set to false
         if (req.query.contig === 'false') {
+            states = states.filter(state => state.code === 'AK' || state.code === 'HI');
+        } else if (req.query.contig === 'true') {
+            // Filter for contiguous states only (excluding AK and HI)
             states = states.filter(state => state.code !== 'AK' && state.code !== 'HI');
+        }
+
+        // Fetch funfacts from MongoDB and attach them to the response for states with funfacts
+        for (let i = 0; i < states.length; i++) {
+            const stateData = await State.findOne({ stateCode: states[i].code });
+            if (stateData && stateData.funfacts) {
+                states[i].funfacts = stateData.funfacts;
+            }
         }
 
         res.json(states);
