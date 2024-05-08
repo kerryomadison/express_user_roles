@@ -72,26 +72,21 @@ const deleteState = async (req, res) => {
 const getState = async (req, res) => {
     try {
         const stateCode = req.params.stateCode.toUpperCase(); // Convert to uppercase for case-insensitivity
-
-        // Find the state in the MongoDB collection
-        const stateData = await State.findOne({ stateCode });
-
-        // Find the state in the statesData.json file
-        const state = statesData.find(state => state.code.toUpperCase() === stateCode);
-
+        const state = statesData.find(state => state.code.toUpperCase() === stateCode); // Use 'code' instead of 'abbreviation'
         if (!state) {
             return res.status(400).json({ message: 'Invalid state abbreviation parameter' });
         }
 
-        // Attach funfacts from MongoDB to the state object
+        const stateData = await State.findOne({ stateCode });
+
         if (stateData && stateData.funfacts) {
             state.funfacts = stateData.funfacts;
         }
 
-        res.json(state);
+        return res.json(state);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server Error' });
+        return res.status(500).json({ message: 'Server Error' });
     }
 };
 

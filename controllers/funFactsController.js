@@ -1,6 +1,11 @@
 const State = require('../model/State');
 const statesData = require('../model/statesData.json');
 
+function getStateName(stateCode) {
+    const state = statesData.find(state => state.code === stateCode.toUpperCase());
+    return state ? state.state : stateCode;
+}
+
 const getRandomFunFact = async (req, res) => {
     try {
         const { stateCode } = req.params;
@@ -8,9 +13,9 @@ const getRandomFunFact = async (req, res) => {
         // Find the state in the database
         let state = await State.findOne({ stateCode: stateCode.toUpperCase() });
 
-        // If state does not exist, return 400
+        // If state does not exist, return 404
         if (!state) {
-            return res.status(400).json({ message: `Invalid state abbreviation parameter` });
+            return res.status(404).json({ message: `No Fun Facts found for ${getStateName(stateCode)}` });
         }
 
         // Check if the state has any fun facts
@@ -18,13 +23,14 @@ const getRandomFunFact = async (req, res) => {
             const randomIndex = Math.floor(Math.random() * state.funfacts.length);
             return res.json({ funfact: state.funfacts[randomIndex] });
         } else {
-            return res.status(404).json({ message: `No Fun Facts found for ${stateCode}` });
+            return res.status(404).json({ message: `No Fun Facts found for ${getStateName(stateCode)}` });
         }
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
 
 const createFunFacts = async (req, res) => {
     try {
@@ -82,12 +88,12 @@ const updateFunFacts = async (req, res) => {
 
         // If state does not exist, return 404
         if (!state) {
-            return res.status(404).json({ message: `No state found for code ${stateCode}` });
+            return res.status(404).json({ message: `No state found for code ${getStateName(stateCode)}` });
         }
 
         // Update the fun fact at the specified index
         if (index < 1 || index > state.funfacts.length) {
-            return res.status(400).json({ message: `No Fun Fact found at that index for ${state.state}` });
+            return res.status(400).json({ message: `No Fun Fact found at that index for ${getStateName(stateCode)}` });
         }
         state.funfacts[index - 1] = funfact;
 
