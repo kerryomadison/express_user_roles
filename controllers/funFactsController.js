@@ -70,6 +70,7 @@ const createFunFacts = async (req, res) => {
         return res.status(500).json({ message: 'Server Error' });
     }
 };
+
 const updateFunFacts = async (req, res) => {
     try {
         const { stateCode } = req.params;
@@ -86,14 +87,21 @@ const updateFunFacts = async (req, res) => {
         // Find the state in the database
         let state = await State.findOne({ stateCode: stateCode.toUpperCase() });
 
-        // If state does not exist, return 404
+        // If state does not exist, create a new state record
         if (!state) {
-            return res.status(404).json({ message: `No state found for code ${getStateName(stateCode)}` });
+            state = new State({
+                stateCode: stateCode,
+                funfacts: []
+            });
+        }
+        // Check if there are fun facts to delete
+        if (!state.funfacts || state.funfacts.length === 0) {
+            return res.status(400).json({ message: `No Fun Facts found for ${getStateName(stateCode)}` });
         }
 
         // Update the fun fact at the specified index
         if (index < 1 || index > state.funfacts.length) {
-            return res.status(400).json({ message: `No Fun Fact found at that index for ${getStateName(stateCode)}` });
+            return res.status(400).json({ message: `No Fun Facts found at that index for ${getStateName(stateCode)}` });
         }
         state.funfacts[index - 1] = funfact;
 
@@ -114,23 +122,27 @@ const updateFunFacts = async (req, res) => {
     }
 };
 
-
 const deleteFunFact = async (req, res) => {
     try {
-        const { stateCode } = req.params;
+        let { stateCode } = req.params;
         const { index } = req.body;
 
-        // Check if index is provided
-        if (!index) {
-            return res.status(400).json({ message: 'State fun fact index value required' });
-        }
+        // Convert state code to uppercase
+        stateCode = stateCode.toUpperCase();
+
+        // console.log("Deleting fun fact for state code:", stateCode);
 
         // Find the state in the database
-        let state = await State.findOne({ stateCode: stateCode.toUpperCase() });
+        let state = await State.findOne({ stateCode });
 
-        // If state does not exist, return 404
+        console.log("State found:", state);
+
+        // If state does not exist, create a new state record
         if (!state) {
-            return res.status(404).json({ message: `No state found for code ${getStateName(stateCode)}` });
+            state = new State({
+                stateCode: stateCode,
+                funfacts: []
+            });
         }
 
         // Check if there are fun facts to delete
@@ -146,7 +158,7 @@ const deleteFunFact = async (req, res) => {
         // Remove the fun fact at the specified index
         state.funfacts.splice(index - 1, 1);
 
-        // Save the updated state record
+        // Save the updated or new state record
         await state.save();
 
         // Return success message and updated state object
@@ -156,6 +168,8 @@ const deleteFunFact = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
+
 
 module.exports = {
     getRandomFunFact,
