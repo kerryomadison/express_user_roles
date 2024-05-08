@@ -91,10 +91,16 @@ const updateFunFacts = async (req, res) => {
             return res.status(404).json({ message: `No state found for code ${getStateName(stateCode)}` });
         }
 
+        // Check if there are any fun facts to update
+        if (!state.funfacts || state.funfacts.length === 0) {
+            return res.status(404).json({ message: `No Fun Facts found for ${getStateName(stateCode)}` });
+        }
+
         // Update the fun fact at the specified index
         if (index < 1 || index > state.funfacts.length) {
             return res.status(400).json({ message: `No Fun Fact found at that index for ${getStateName(stateCode)}` });
         }
+
         state.funfacts[index - 1] = funfact;
 
         // Save the updated state record
@@ -112,6 +118,7 @@ const updateFunFacts = async (req, res) => {
     }
 };
 
+
 const deleteFunFact = async (req, res) => {
     try {
         const { stateCode } = req.params;
@@ -127,17 +134,17 @@ const deleteFunFact = async (req, res) => {
 
         // If state does not exist, return 404
         if (!state) {
-            return res.status(404).json({ message: `No state found for code ${stateCode}` });
+            return res.status(404).json({ message: `No state found for code ${getStateName(stateCode)}` });
         }
 
         // Check if there are fun facts to delete
         if (!state.funfacts || state.funfacts.length === 0) {
-            return res.status(400).json({ message: `No Fun Facts found for ${stateCode}` });
+            return res.status(404).json({ message: `No Fun Facts found for ${getStateName(stateCode)}` });
         }
 
         // Check if the index is valid
         if (index < 1 || index > state.funfacts.length) {
-            return res.status(400).json({ message: `No Fun Fact found at that index for ${stateCode}` });
+            return res.status(400).json({ message: `No Fun Fact found at that index for ${getStateName(stateCode)}` });
         }
 
         // Remove the fun fact at the specified index
@@ -153,7 +160,6 @@ const deleteFunFact = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
-
 
 module.exports = {
     getRandomFunFact,
